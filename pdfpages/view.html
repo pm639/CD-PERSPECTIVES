@@ -1,0 +1,8 @@
+<!doctype html><html><body style="margin:0;background:#888"><div id="s" style="font:12px monospace;position:fixed;top:0;right:0;background:#fff;z-index:9">loading</div><div id="w" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;width:1200px"></div>
+<script type="module">
+import * as pdfjs from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs';
+const doc=await pdfjs.getDocument('../uploads/CDATELIER.pdf').promise;
+for(let i=1;i<=doc.numPages;i++){const p=await doc.getPage(i);const v0=p.getViewport({scale:1});const vp=p.getViewport({scale:597/v0.width});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;document.getElementById('w').appendChild(c);await p.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;document.getElementById('s').textContent='done '+i;}
+window.__done=true;
+</script></body></html>
